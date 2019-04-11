@@ -1,5 +1,6 @@
 import { query as queryUsers, queryCurrent } from '@/services/user';
 import { message } from 'antd';
+import { getFromStorage } from '@/utils/authority';
 
 export default {
   namespace: 'user',
@@ -16,6 +17,19 @@ export default {
         type: 'save',
         payload: response,
       });
+    },
+    *checkAuth(_, { call, put }) {
+      const token = getFromStorage('token')
+      if (!token) {
+        yield put(
+          routerRedux.replace({
+            pathname: '/user/login',
+            search: stringify({
+              redirect: window.location.href,
+            }),
+          })
+        );
+      }
     },
     *fetchCurrent(_, { call, put }) {
       const res = yield call(queryCurrent);

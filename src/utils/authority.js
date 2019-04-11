@@ -31,3 +31,10 @@ export function getFromStorage(key) {
     return JSON.parse(localStorage.getItem(key));
   }
 }
+
+
+export function removeFromStorage(key) {
+  if (localStorage.getItem(key)) {
+    localStorage.removeItem(key)
+  }
+}

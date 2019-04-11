@@ -12,7 +12,6 @@ import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
-import { getFromStorage } from '@/utils/authority';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -45,17 +44,23 @@ const query = {
 };
 
 class BasicLayout extends React.Component {
+
+  componentWillMount() {
+    // this.props.dispatch({
+    //   type: 'user/checkAuth'
+    // })
+  }
+
+
   componentDidMount() {
     const {
       dispatch,
       route: { routes, path, authority },
     } = this.props;
 
-    if (getFromStorage('token')) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
-    }
+    dispatch({
+      type: 'user/fetchCurrent',
+    });
 
     dispatch({
       type: 'setting/getSetting',

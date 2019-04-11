@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/vendors.async.js"
   },
   {
-    "revision": "e8e578297ff2d85cf09b",
+    "revision": "d4be2a0ef0fd9712ed2f",
     "url": "/layouts__BasicLayout.chunk.css"
   },
   {
-    "revision": "e8e578297ff2d85cf09b",
+    "revision": "d4be2a0ef0fd9712ed2f",
     "url": "/layouts__BasicLayout.async.js"
   },
   {
@@ -92,7 +92,7 @@ self.__precacheManifest = [
     "url": "/p__User__RegisterResult.async.js"
   },
   {
-    "revision": "796047a45f16b7b780ef",
+    "revision": "4126becd31bf5c6381af",
     "url": "/p__User__models__register.js.async.js"
   },
   {
@@ -108,11 +108,11 @@ self.__precacheManifest = [
     "url": "/p__Users__models__users.js.async.js"
   },
   {
-    "revision": "335b0c51ac5c4e65e7cf",
+    "revision": "f556293fb34dca37e02a",
     "url": "/umi.css"
   },
   {
-    "revision": "335b0c51ac5c4e65e7cf",
+    "revision": "f556293fb34dca37e02a",
     "url": "/umi.js"
   },
   {
@@ -132,8 +132,8 @@ self.__precacheManifest = [
     "url": "/index.html"
   },
   {
-    "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
-    "url": "/favicon.png"
+    "revision": "386acc8261f61af932676e7a93e3ccbf",
+    "url": "/ggeditor/flow/decision.svg"
   },
   {
     "revision": "c3eb6822f00442e58f4fae8645276b29",
@@ -144,12 +144,16 @@ self.__precacheManifest = [
     "url": "/ggeditor/flow/model.svg"
   },
   {
-    "revision": "386acc8261f61af932676e7a93e3ccbf",
-    "url": "/ggeditor/flow/decision.svg"
+    "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
+    "url": "/favicon.png"
   },
   {
     "revision": "c34897c103689b920309d1eeeca9ebad",
     "url": "/ggeditor/flow/start.svg"
+  },
+  {
+    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
+    "url": "/icons/icon-192x192.png"
   },
   {
     "revision": "07dcd135056a94bf54b5525779ab4cef",
@@ -160,20 +164,16 @@ self.__precacheManifest = [
     "url": "/icons/icon-128x128.png"
   },
   {
+    "revision": "5661ce8e2472d2727e8fd0390b22ba37",
+    "url": "/icons/icon-512x512.png"
+  },
+  {
     "revision": "23f14d5686d7b771c5bffaa6cd1c3f05",
     "url": "/ggeditor/koni/country.svg"
   },
   {
-    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
-    "url": "/icons/icon-192x192.png"
-  },
-  {
     "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
     "url": "/ggeditor/koni/bank.svg"
-  },
-  {
-    "revision": "5661ce8e2472d2727e8fd0390b22ba37",
-    "url": "/icons/icon-512x512.png"
   },
   {
     "revision": "e72ea94ad4025edf7a44cf0f88591ee3",
