@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/vendors.async.js"
   },
   {
-    "revision": "d4be2a0ef0fd9712ed2f",
+    "revision": "889a7656bc01aaa5ee1a",
     "url": "/layouts__BasicLayout.chunk.css"
   },
   {
-    "revision": "d4be2a0ef0fd9712ed2f",
+    "revision": "889a7656bc01aaa5ee1a",
     "url": "/layouts__BasicLayout.async.js"
   },
   {
-    "revision": "7803946dfff817c64e47",
+    "revision": "ec03a7f9e64343efb395",
     "url": "/layouts__UserLayout.chunk.css"
   },
   {
-    "revision": "7803946dfff817c64e47",
+    "revision": "ec03a7f9e64343efb395",
     "url": "/layouts__UserLayout.async.js"
   },
   {
@@ -68,11 +68,11 @@ self.__precacheManifest = [
     "url": "/p__Orders__models__orders.js.async.js"
   },
   {
-    "revision": "7acbf8609aaf372ecc0f",
+    "revision": "fce0fad98b5e43bb70e4",
     "url": "/p__User__Login.chunk.css"
   },
   {
-    "revision": "7acbf8609aaf372ecc0f",
+    "revision": "fce0fad98b5e43bb70e4",
     "url": "/p__User__Login.async.js"
   },
   {
@@ -132,24 +132,28 @@ self.__precacheManifest = [
     "url": "/index.html"
   },
   {
-    "revision": "c3eb6822f00442e58f4fae8645276b29",
-    "url": "/ggeditor/flow/normal.svg"
-  },
-  {
     "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
     "url": "/favicon.png"
-  },
-  {
-    "revision": "386acc8261f61af932676e7a93e3ccbf",
-    "url": "/ggeditor/flow/decision.svg"
   },
   {
     "revision": "7ae8363380c2f7b1cc749be320f584ae",
     "url": "/ggeditor/flow/model.svg"
   },
   {
+    "revision": "386acc8261f61af932676e7a93e3ccbf",
+    "url": "/ggeditor/flow/decision.svg"
+  },
+  {
     "revision": "c34897c103689b920309d1eeeca9ebad",
     "url": "/ggeditor/flow/start.svg"
+  },
+  {
+    "revision": "c3eb6822f00442e58f4fae8645276b29",
+    "url": "/ggeditor/flow/normal.svg"
+  },
+  {
+    "revision": "07dcd135056a94bf54b5525779ab4cef",
+    "url": "/ggeditor/koni/icon.svg"
   },
   {
     "revision": "347329d0982682b42d40c8162817a940",
@@ -164,20 +168,16 @@ self.__precacheManifest = [
     "url": "/icons/icon-512x512.png"
   },
   {
-    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
-    "url": "/ggeditor/koni/bank.svg"
-  },
-  {
-    "revision": "07dcd135056a94bf54b5525779ab4cef",
-    "url": "/ggeditor/koni/icon.svg"
-  },
-  {
     "revision": "23f14d5686d7b771c5bffaa6cd1c3f05",
     "url": "/ggeditor/koni/country.svg"
   },
   {
     "revision": "e72ea94ad4025edf7a44cf0f88591ee3",
     "url": "/ggeditor/koni/person.svg"
+  },
+  {
+    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
+    "url": "/ggeditor/koni/bank.svg"
   },
   {
     "revision": "0e530af6fe2f20b65c32fcee3b608160",
