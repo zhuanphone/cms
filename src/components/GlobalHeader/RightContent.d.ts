@@ -8,7 +8,7 @@ export interface GlobalHeaderRightProps {
   dispatch?: (args: any) => void;
   currentUser?: {
     avatar?: string;
-    name?: string;
+    username?: string;
     title?: string;
     group?: string;
     signature?: string;
@@ -23,4 +23,4 @@ export interface GlobalHeaderRightProps {
   theme?: SiderTheme;
 }
 
-export default class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps, any> {}
+export default class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps, any> { }

@@ -12,6 +12,7 @@ import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
+import { getFromStorage } from '@/utils/authority';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -49,9 +50,13 @@ class BasicLayout extends React.Component {
       dispatch,
       route: { routes, path, authority },
     } = this.props;
-    dispatch({
-      type: 'user/fetchCurrent',
-    });
+
+    if (getFromStorage('token')) {
+      dispatch({
+        type: 'user/fetchCurrent',
+      });
+    }
+
     dispatch({
       type: 'setting/getSetting',
     });

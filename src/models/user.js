@@ -1,4 +1,5 @@
 import { query as queryUsers, queryCurrent } from '@/services/user';
+import { message } from 'antd';
 
 export default {
   namespace: 'user',
@@ -17,11 +18,18 @@ export default {
       });
     },
     *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
+      const res = yield call(queryCurrent);
+      console.log('res: ', res);
+      if (res && res.status === 200) {
+        const { status, result } = res
+        console.log('result: ', result);
+        yield put({
+          type: 'saveCurrentUser',
+          payload: result,
+        });
+      } else {
+        message.error('无法获取当前用户')
+      }
     },
   },
 

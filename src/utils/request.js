@@ -145,7 +145,9 @@ export default function request(url, option) {
       }
       // environment should not be used
       if (status === 403) {
-        router.push('/exception/403');
+        window.g_app._store.dispatch({
+          type: 'login/logout',
+        });
         return;
       }
       // if (status <= 504 && status >= 500) {
