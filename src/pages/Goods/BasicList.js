@@ -102,7 +102,7 @@ class PicturesWall extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          action="http://up.qiniu.com"
+          action="http://up-z1.qiniu.com"
           data={{ token }}
           listType="picture-card"
           fileList={fileList}
@@ -422,7 +422,7 @@ class BasicList extends Component {
             title="手机列表"
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
-            // extra={extraContent}
+          // extra={extraContent}
           >
             <Button
               type="dashed"
