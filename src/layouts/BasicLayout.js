@@ -47,9 +47,9 @@ const query = {
 class BasicLayout extends React.Component {
 
   componentWillMount() {
-    // this.props.dispatch({
-    //   type: 'user/checkAuth'
-    // })
+    this.props.dispatch({
+      type: 'user/checkAuth'
+    })
   }
 
 

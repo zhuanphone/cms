@@ -1,6 +1,7 @@
 import { query as queryUsers, queryCurrent } from '@/services/user';
 import { message } from 'antd';
 import { getFromStorage } from '@/utils/authority';
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'user',
@@ -20,14 +21,18 @@ export default {
     },
     *checkAuth(_, { call, put }) {
       const token = getFromStorage('token')
+      console.log('token: ', token);
       if (!token) {
+        console.log('go to login')
         yield put(
-          routerRedux.replace({
-            pathname: '/user/login',
-            search: stringify({
-              redirect: window.location.href,
-            }),
-          })
+          // routerRedux.replace({
+          //   pathname: '/user/login',
+          //   search: stringify({
+          //     redirect: window.location.href,
+          //   }),
+          // })
+
+          routerRedux.replace('/user/login')
         );
       }
     },
