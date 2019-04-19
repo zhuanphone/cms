@@ -89,7 +89,7 @@ class PicturesWall extends React.Component {
           onPreview={this.handlePreview}
           onChange={this.handleChange}
         >
-          {fileList.length >= 3 ? null : uploadButton}
+          {uploadButton}
         </Upload>
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -394,11 +394,17 @@ class BasicList extends Component {
               initialValue: current.desc,
             })(<TextArea rows={4} placeholder="请输入描述" />)}
           </FormItem>
-          <FormItem label="价格" {...this.formLayout}>
+          <FormItem label="原价" {...this.formLayout}>
             {getFieldDecorator('originPrice', {
-              rules: [{ required: true, message: '请输入价格' }],
+              rules: [{ required: true, message: '请输入原价' }],
               initialValue: current.originPrice,
-            })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入价格" />)}
+            })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入原价" />)}
+          </FormItem>
+          <FormItem label="现价" {...this.formLayout}>
+            {getFieldDecorator('purchasePrice', {
+              rules: [{ required: true, message: '请输入现价' }],
+              initialValue: current.purchasePrice,
+            })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入现价" />)}
           </FormItem>
           <FormItem label="邮递" {...this.formLayout}>
             {getFieldDecorator('post', {
@@ -412,12 +418,7 @@ class BasicList extends Component {
               <Option value="30">30</Option>
             </Select>)}
           </FormItem>
-          {/* <FormItem label="现价" {...this.formLayout}>
-            {getFieldDecorator('purchasePrice', {
-              rules: [{ required: true, message: '请输入现价' }],
-              initialValue: current.purchasePrice,
-            })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入现价" />)}
-          </FormItem> */}
+
           <FormItem label="封面图" {...this.formLayout}>
             <img src={current.coverImg} style={{ display: 'inline-block', width: '80px', height: '80px', objectFit: 'contain' }} />
           </FormItem>
