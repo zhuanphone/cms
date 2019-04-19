@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "d88d758f8acbe603431a",
+    "revision": "66af9b4abc203318eb69",
     "url": "/vendors.chunk.css"
   },
   {
-    "revision": "d88d758f8acbe603431a",
+    "revision": "66af9b4abc203318eb69",
     "url": "/vendors.async.js"
   },
   {
@@ -28,11 +28,11 @@ self.__precacheManifest = [
     "url": "/p__404.async.js"
   },
   {
-    "revision": "2452ea82c164e97abc7e",
+    "revision": "b2b13ac4af9a6973955e",
     "url": "/p__Goods__BasicList.chunk.css"
   },
   {
-    "revision": "2452ea82c164e97abc7e",
+    "revision": "b2b13ac4af9a6973955e",
     "url": "/p__Goods__BasicList.async.js"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/p__Goods__BasicProfile.async.js"
   },
   {
-    "revision": "369c60f898c6a049da24",
+    "revision": "c5dd9a18cb6b16ce8ca0",
     "url": "/p__Goods__models__goods.js.async.js"
   },
   {
@@ -132,36 +132,36 @@ self.__precacheManifest = [
     "url": "/index.html"
   },
   {
-    "revision": "c3eb6822f00442e58f4fae8645276b29",
-    "url": "/ggeditor/flow/normal.svg"
+    "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
+    "url": "/favicon.png"
   },
   {
     "revision": "7ae8363380c2f7b1cc749be320f584ae",
     "url": "/ggeditor/flow/model.svg"
   },
   {
-    "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
-    "url": "/favicon.png"
+    "revision": "386acc8261f61af932676e7a93e3ccbf",
+    "url": "/ggeditor/flow/decision.svg"
   },
   {
-    "revision": "07dcd135056a94bf54b5525779ab4cef",
-    "url": "/ggeditor/koni/icon.svg"
+    "revision": "c3eb6822f00442e58f4fae8645276b29",
+    "url": "/ggeditor/flow/normal.svg"
   },
   {
     "revision": "c34897c103689b920309d1eeeca9ebad",
     "url": "/ggeditor/flow/start.svg"
   },
   {
-    "revision": "386acc8261f61af932676e7a93e3ccbf",
-    "url": "/ggeditor/flow/decision.svg"
-  },
-  {
-    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
-    "url": "/icons/icon-192x192.png"
+    "revision": "07dcd135056a94bf54b5525779ab4cef",
+    "url": "/ggeditor/koni/icon.svg"
   },
   {
     "revision": "347329d0982682b42d40c8162817a940",
     "url": "/icons/icon-128x128.png"
+  },
+  {
+    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
+    "url": "/icons/icon-192x192.png"
   },
   {
     "revision": "5661ce8e2472d2727e8fd0390b22ba37",
