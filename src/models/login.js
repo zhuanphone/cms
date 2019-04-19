@@ -17,12 +17,15 @@ export default {
       const response = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
-        payload: response,
+        payload: {
+          status: true,
+          role: response.result.user.role
+        }
       });
       // Login successfully
       const { status, result } = response;
       if (status === 200) {
-        // reloadAuthorized();
+        reloadAuthorized();
         setToStorage('token', result.token);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -52,12 +55,13 @@ export default {
         type: 'changeLoginStatus',
         payload: {
           status: false,
+          role: 'USER'
         },
       });
 
       // 清除token
       removeFromStorage('token')
-      // reloadAuthorized();
+      reloadAuthorized();
 
       yield put(
         routerRedux.replace({
@@ -72,12 +76,11 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      // setAuthority(payload.currentAuthority);
-      // set(payload)
+
+      setAuthority(payload.role);
       return {
         ...state,
-        status: payload.status,
-        // type: payload.type,
+        status: payload.status
       };
     },
   },

@@ -14,7 +14,6 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {
       const response = yield call(listOrders, payload);
-      console.log('fetch orders: ', response);
       const { status, result } = response;
       yield put({
         type: 'save',
@@ -53,7 +52,6 @@ export default {
           order: response.result,
         },
       });
-      console.log('fetch order ====>', response);
       return response;
     },
   },

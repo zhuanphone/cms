@@ -3,9 +3,13 @@ import Redirect from 'umi/redirect';
 import pathToRegexp from 'path-to-regexp';
 import { connect } from 'dva';
 import Authorized from '@/utils/Authorized';
+import { getFromStorage } from '@/utils/authority';
+import router from 'umi/router';
 
 function AuthComponent({ children, location, routerData, status }) {
-  const isLogin = status === 200;
+  const token = getFromStorage('token');
+  const isLogin = token ? true : false
+
   const getRouteAuthority = (path, routeData) => {
     let authorities;
     routeData.forEach(route => {

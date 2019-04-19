@@ -16,7 +16,6 @@ export default {
       try {
         const response = yield call(listGoods, payload);
         const { status, result } = response;
-        console.log('fetch result: ', result);
         yield put({
           type: 'save',
           payload: result,
@@ -29,7 +28,6 @@ export default {
       try {
         const response = yield call(readGood, payload);
         const { status, result } = response;
-        console.log('fetchGood result: ', result);
         yield put({
           type: 'save',
           payload: result,

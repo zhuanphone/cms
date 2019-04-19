@@ -51,7 +51,6 @@ class PicturesWall extends React.Component {
   handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = file => {
-    console.log('preview====>', file)
     this.setState({
       previewFile: file,
       previewImage: file.url || file.thumbUrl,
@@ -186,7 +185,6 @@ class BasicList extends Component {
 
     setTimeout(() => this.addBtn.blur(), 0);
     form.validateFields((err, fieldsValue) => {
-      console.log('fieldsValue++++', fieldsValue);
       if (err) return;
 
       if (operation === 'create') {
@@ -265,10 +263,8 @@ class BasicList extends Component {
       form: { getFieldDecorator },
     } = this.props;
     const { visible, operation, done, current = { properties: {} }, showProperties } = this.state;
-    console.log('current: ', current);
 
     const editAndDelete = (key, currentItem) => {
-      console.log('edit current item: ', currentItem);
       this.setState({ operation: key });
       if (key === 'edit') {
         this.showEditModal(currentItem);
@@ -427,7 +423,6 @@ class BasicList extends Component {
             {getFieldDecorator('imgs', {
               valuePropName: 'fileList',
               getValueFromEvent: e => {
-                console.log('get value===>', e);
                 if (!e || !e.fileList) {
                   return e;
                 }

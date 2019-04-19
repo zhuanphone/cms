@@ -21,9 +21,7 @@ export default {
     },
     *checkAuth(_, { call, put }) {
       const token = getFromStorage('token')
-      console.log('token: ', token);
       if (!token) {
-        console.log('go to login')
         yield put(
           // routerRedux.replace({
           //   pathname: '/user/login',
@@ -38,10 +36,8 @@ export default {
     },
     *fetchCurrent(_, { call, put }) {
       const res = yield call(queryCurrent);
-      console.log('res: ', res);
       if (res && res.status === 200) {
         const { status, result } = res
-        console.log('result: ', result);
         yield put({
           type: 'saveCurrentUser',
           payload: result,

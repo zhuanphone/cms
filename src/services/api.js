@@ -122,7 +122,6 @@ export async function getFakeCaptcha(mobile) {
  * }
  */
 export async function accountLogin(params) {
-  console.log('params', params);
   return request(`${APIURL}/auth/login`, {
     method: 'POST',
     body: params,

@@ -27,8 +27,8 @@ const progressColumns = [
       text === 'success' ? (
         <Badge status="success" text="成功" />
       ) : (
-        <Badge status="processing" text="进行中" />
-      ),
+          <Badge status="processing" text="进行中" />
+        ),
   },
   {
     title: '操作员ID',
@@ -48,7 +48,6 @@ const progressColumns = [
 }))
 class BasicProfile extends Component {
   componentDidMount() {
-    console.log('this.props====>', this.props);
     const { dispatch, match } = this.props;
     const { params } = match;
 

@@ -21,7 +21,6 @@ const pageSize = 5;
   onValuesChange({ dispatch }, changedValues, allValues) {
     // 表单项变化时请求数据
     // eslint-disable-next-line
-    console.log(changedValues, allValues);
     // 模拟查询表单生效
     dispatch({
       type: 'list/fetch',
@@ -122,8 +121,8 @@ class SearchList extends Component {
                 <Icon type="loading" /> 加载中...
               </span>
             ) : (
-              '加载更多'
-            )}
+                '加载更多'
+              )}
           </Button>
         </div>
       ) : null;
