@@ -28,11 +28,11 @@ self.__precacheManifest = [
     "url": "/p__404.async.js"
   },
   {
-    "revision": "b2b13ac4af9a6973955e",
+    "revision": "e7bc281871595e869e88",
     "url": "/p__Goods__BasicList.chunk.css"
   },
   {
-    "revision": "b2b13ac4af9a6973955e",
+    "revision": "e7bc281871595e869e88",
     "url": "/p__Goods__BasicList.async.js"
   },
   {
@@ -136,16 +136,16 @@ self.__precacheManifest = [
     "url": "/favicon.png"
   },
   {
-    "revision": "7ae8363380c2f7b1cc749be320f584ae",
-    "url": "/ggeditor/flow/model.svg"
+    "revision": "c3eb6822f00442e58f4fae8645276b29",
+    "url": "/ggeditor/flow/normal.svg"
   },
   {
     "revision": "386acc8261f61af932676e7a93e3ccbf",
     "url": "/ggeditor/flow/decision.svg"
   },
   {
-    "revision": "c3eb6822f00442e58f4fae8645276b29",
-    "url": "/ggeditor/flow/normal.svg"
+    "revision": "7ae8363380c2f7b1cc749be320f584ae",
+    "url": "/ggeditor/flow/model.svg"
   },
   {
     "revision": "c34897c103689b920309d1eeeca9ebad",
@@ -168,12 +168,12 @@ self.__precacheManifest = [
     "url": "/icons/icon-512x512.png"
   },
   {
-    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
-    "url": "/ggeditor/koni/bank.svg"
-  },
-  {
     "revision": "23f14d5686d7b771c5bffaa6cd1c3f05",
     "url": "/ggeditor/koni/country.svg"
+  },
+  {
+    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
+    "url": "/ggeditor/koni/bank.svg"
   },
   {
     "revision": "e72ea94ad4025edf7a44cf0f88591ee3",

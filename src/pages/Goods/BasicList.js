@@ -80,8 +80,8 @@ class PicturesWall extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          // action="http://up-z1.qiniu.com"
-          action="http://up-z0.qiniu.com"
+          action="http://up-z1.qiniu.com"
+          // action="http://up-z0.qiniu.com"
           data={{ token }}
           listType="picture-card"
           fileList={fileList}
