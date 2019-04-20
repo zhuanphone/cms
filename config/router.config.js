@@ -46,7 +46,7 @@ export default [
         icon: 'table',
         name: 'orders',
         authority: ['ADMIN'],
-        component: './Orders/BasicList',
+        component: './Orders/TableList',
       },
       {
         path: '/orders/:id',
@@ -67,6 +67,7 @@ export default [
         name: 'exception',
         icon: 'warning',
         path: '/exception',
+        hideInMenu: true,
         routes: [
           // exception
           {
