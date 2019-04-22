@@ -12,7 +12,7 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    *list({ payload }, { call, put }) {
       const response = yield call(listOrders, payload);
       const { status, result } = response;
       yield put({
@@ -44,7 +44,7 @@ export default {
       });
       if (callback) callback();
     },
-    *fetchOrder({ payload, callback }, { call, put }) {
+    *read({ payload, callback }, { call, put }) {
       const response = yield call(readOrder, payload);
       yield put({
         type: 'save',

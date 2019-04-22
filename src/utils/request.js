@@ -28,10 +28,10 @@ const checkStatus = response => {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
-  // notification.error({
-  //   message: `请求错误 ${response.status}: ${response.url}`,
-  //   description: errortext,
-  // });
+  notification.error({
+    message: `请求错误 ${response.status}: ${response.url}`,
+    description: errortext,
+  });
   const error = new Error(errortext);
   error.name = response.status;
   error.response = response;
@@ -128,9 +128,6 @@ export default function request(url, option) {
     .then(response => {
       // DELETE and 204 do not return data by default
       // using .json will report an error.
-      if (newOptions.method === 'DELETE' || response.status === 204) {
-        return response.text();
-      }
       return response.json();
     })
     .catch(e => {

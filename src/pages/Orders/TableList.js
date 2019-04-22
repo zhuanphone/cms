@@ -37,16 +37,36 @@ const getValue = obj =>
     .map(key => obj[key])
     .join(',');
 // const statusMap = ['default', 'processing', 'success', 'error'];
-const statusMap = {
+const PaymentStateMap = {
   'BEPAID': '待支付',
   'PAIDED': '已支付',
   'PAIDFAIL': '支付失败'
 }
 
-const statusBadgeMap = {
+const PaymentStateBadgeMap = {
   'BEPAID': 'processing',
   'PAIDED': 'success',
   'PAIDFAIL': 'error'
+}
+
+
+const stateMap = {
+  CONFIRM: '已确认', // 已确认
+  PAYMENT: '待付款',  // 待付款
+  PAIDED: '买家已付款', // 买家已付款
+  BESEND: '待发货', // 待发货
+  SENDED: '已发货', // 已发货
+  COMPLETE: '交易成功', // 交易成功
+  CANCEL: '交易取消', // 交易取消
+}
+const stateBadgeMap = {
+  CONFIRM: 'default', // 已确认
+  PAYMENT: 'processing',  // 待付款
+  PAIDED: 'success', // 买家已付款
+  BESEND: 'processing', // 待发货
+  SENDED: 'success', // 已发货
+  COMPLETE: 'success', // 交易成功
+  CANCEL: 'error', // 交易取消
 }
 
 const status = ['关闭', '运行中', '已上线', '异常'];
@@ -309,38 +329,51 @@ class TableList extends Component {
     },
     {
       title: '商品名称',
-      dataIndex: 'goods',
-      render: goods => {
-        if (goods) {
-          return <span>{goods[0].good.name}</span>
+      dataIndex: 'releatedGoods',
+      render: items => {
+        if (items) {
+          return <span>{items[0].good.title}</span>
         }
       }
     },
     {
       title: '收货人',
-      dataIndex: 'receivername',
+      dataIndex: 'receiverName',
     },
     {
       title: '收货人电话',
-      dataIndex: 'phone',
+      dataIndex: 'receiverPhone',
     },
     {
       title: '收货地址',
-      dataIndex: 'address',
+      dataIndex: 'receiverAddress',
     },
     {
       title: '创建时间',
-      dataIndex: 'created',
+      dataIndex: 'createdAt',
+      render(val) {
+        return <span>{new Date(val).toLocaleDateString()}</span>
+      }
     },
     {
       title: '订单总价',
-      dataIndex: 'amount',
+      dataIndex: 'total',
+      render(val) {
+        return <span>￥{val.toFixed(2)}</span>
+      }
     },
     {
-      title: '状态',
-      dataIndex: 'status',
+      title: '订单状态',
+      dataIndex: 'state',
       render(val) {
-        return <Badge status={statusBadgeMap[val]} text={statusMap[val]} />;
+        return <Badge status={stateBadgeMap[val]} text={stateMap[val]} />;
+      },
+    },
+    {
+      title: '支付状态',
+      dataIndex: 'paymentState',
+      render(val) {
+        return <Badge status={PaymentStateBadgeMap[val]} text={PaymentStateMap[val]} />;
       },
     },
     // {
@@ -356,7 +389,7 @@ class TableList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'orders/fetch',
+      type: 'orders/list',
     });
   }
 
@@ -445,11 +478,11 @@ class TableList extends Component {
     const { dispatch, form } = this.props;
 
     form.validateFields((err, fieldsValue) => {
+      console.log('fieldsValue: ', fieldsValue);
       if (err) return;
 
       const values = {
         ...fieldsValue,
-        updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
 
       this.setState({
@@ -457,7 +490,7 @@ class TableList extends Component {
       });
 
       dispatch({
-        type: 'rule/fetch',
+        type: 'orders/fetchOrder',
         payload: values,
       });
     });
@@ -516,19 +549,22 @@ class TableList extends Component {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="规则名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+            <FormItem label="收货人">
+              {getFieldDecorator('receivername')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="使用状态">
+            <FormItem label="收货电话">
+              {getFieldDecorator('phone')(<Input placeholder="请输入" />)}
+            </FormItem>
+            {/* <FormItem label="收货电话">
               {getFieldDecorator('status')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
                 </Select>
               )}
-            </FormItem>
+            </FormItem> */}
           </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
@@ -538,9 +574,9 @@ class TableList extends Component {
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
                 重置
               </Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+              {/* <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
                 展开 <Icon type="down" />
-              </a>
+              </a> */}
             </span>
           </Col>
         </Row>
@@ -578,8 +614,8 @@ class TableList extends Component {
         </Row>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="更新日期">
-              {getFieldDecorator('date')(
+            <FormItem label="创建日期">
+              {getFieldDecorator('created')(
                 <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
               )}
             </FormItem>
@@ -649,10 +685,10 @@ class TableList extends Component {
       handleUpdate: this.handleUpdate,
     };
     return (
-      <PageHeaderWrapper title="查询表格">
+      <PageHeaderWrapper title="订单列表">
         <Card bordered={false}>
           <div className={styles.tableList}>
-            {/* <div className={styles.tableListForm}>{this.renderForm()}</div> */}
+            <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
               {/* <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
                 新建
@@ -673,7 +709,7 @@ class TableList extends Component {
               loading={loading}
               data={data}
               columns={this.columns}
-            // onSelectRow={this.handleSelectRows}
+              onSelectRow={this.handleSelectRows}
             // onChange={this.handleStandardTableChange}
             />
           </div>

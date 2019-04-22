@@ -39,21 +39,22 @@ export default {
     *create({ payload }, { call, put }) {
       try {
         const response = yield call(createGood, payload);
+        console.log('create response: ', response, typeof response);
         return response;
       } catch (error) {
         message.error(error.message);
       }
     },
 
-    *delete({ payload, callback }, { call, put }) {
+    *delete({ payload }, { call, put }) {
       const response = yield call(deleteGood, payload);
+      console.log('response: ', response, typeof response);
 
-      if (callback) callback();
       return response;
     },
-    *update({ payload, callback }, { call, put }) {
+    *update({ payload }, { call, put }) {
       const response = yield call(updateGood, payload);
-      if (callback) callback();
+      console.log('update response: ', response);
       return response;
     },
   },

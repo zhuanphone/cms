@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { connect } from 'dva';
@@ -24,9 +24,11 @@ import {
   Upload,
   message,
   Divider,
+  notification,
 } from 'antd';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import StandardTable from '@/components/StandardTable';
 import Result from '@/components/Result';
 
 import styles from './BasicList.less';
@@ -45,7 +47,7 @@ class PicturesWall extends React.Component {
   state = {
     previewVisible: false,
     previewImage: '',
-    fileList: !_.isEmpty(this.props.good.imgs) ? [...this.props.good.imgs] : [],
+    fileList: !_.isEmpty(this.props.good.imgs) ? this.props.good.imgs : [],
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -106,7 +108,67 @@ class PicturesWall extends React.Component {
 }))
 @Form.create()
 class BasicList extends Component {
-  state = { visible: false, operation: 'edit', done: false, showProperties: false };
+  state = { visible: false, operation: 'edit', done: false, showProperties: false, selectedRows: [] };
+
+  columns = [
+    {
+      title: '类型',
+      dataIndex: 'type'
+    },
+    {
+      title: '标题',
+      dataIndex: 'title',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createdAt',
+      render: val => {
+        return <span>{new Date(val).toLocaleDateString()}</span>
+      }
+    },
+    {
+      title: '封面图',
+      dataIndex: 'coverImg',
+      render: val => {
+        return <img src={val} style={{ display: 'inline-block', width: '100px', height: '100px' }} />
+      }
+    },
+    {
+      title: '原价',
+      dataIndex: 'originPrice',
+      render: val => {
+        return <span>￥{val.toFixed(2)}</span>
+      }
+    },
+    {
+      title: '现价',
+      dataIndex: 'purchasePrice',
+      render: val => {
+        return <span>￥{val.toFixed(2)}</span>
+      }
+    },
+    {
+      title: '操作',
+      render: (text, record) => (
+        <Fragment>
+          {/* <a onClick={() => this.showEditModal(record, 'update')}>编辑</a> */}
+          {/* <a onClick={() => this.showDeleteModal(record, 'update')}>删除</a> */}
+          <Dropdown
+            overlay={
+              <Menu onClick={({ key }) => this.editAndDelete(key, record)}>
+                <Menu.Item key="edit">编辑</Menu.Item>
+                <Menu.Item key="delete">删除</Menu.Item>
+              </Menu>
+            }
+          >
+            <a>
+              操作 <Icon type="down" />
+            </a>
+          </Dropdown>
+        </Fragment>
+      ),
+    },
+  ];
 
   formLayout = {
     labelCol: { span: 5 },
@@ -139,6 +201,39 @@ class BasicList extends Component {
       operation,
     });
   };
+
+  showDeleteModal = (item, operation) => {
+
+    Modal.confirm({
+      title: '删除手机',
+      content: '确定删除该手机吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => this.deleteItem(item._id),
+    });
+  }
+
+  editAndDelete = (key, currentItem) => {
+    this.setState({ operation: key });
+    if (key === 'edit') {
+      this.showEditModal(currentItem);
+    } else if (key === 'delete') {
+      Modal.confirm({
+        title: '删除手机',
+        content: '确定删除该手机吗？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => this.deleteItem(currentItem._id),
+      });
+    }
+  };
+
+  handleSelectRows = rows => {
+    this.setState({
+      selectedRows: rows,
+    });
+  };
+
 
   handleSelectType = (value) => {
     console.log('value: ', value);
@@ -185,12 +280,13 @@ class BasicList extends Component {
 
     setTimeout(() => this.addBtn.blur(), 0);
     form.validateFields((err, fieldsValue) => {
+      console.log('fieldsValue: ', fieldsValue, current);
       if (err) return;
 
       if (operation === 'create') {
         dispatch({
           type: 'goods/create',
-          payload: fieldsValue,
+          payload: { ...fieldsValue, coverImg: current.coverImg },
         }).then(res => {
           const { status, message, result } = res;
           if (status === 201) {
@@ -210,20 +306,17 @@ class BasicList extends Component {
           type: 'goods/update',
           payload: {
             id: current._id,
-            data: fieldsValue,
+            data: { ...fieldsValue, coverImg: current.coverImg },
           },
         }).then(res => {
-          const { status, message, result } = res;
-          if (status === 201) {
+          if (res && res.status === 201) {
+            const { status, message, result } = res;
             this.setState({
               done: true,
             });
             dispatch({
               type: 'goods/fetch',
             });
-            message.success(message);
-          } else {
-            message.error(message);
           }
         });
       }
@@ -236,6 +329,7 @@ class BasicList extends Component {
       type: 'goods/delete',
       payload: { id },
     }).then(res => {
+      console.log('delete res: ', res);
       const { status, message } = res;
       if (status === 200) {
         message.success('删除成功！');
@@ -251,7 +345,7 @@ class BasicList extends Component {
   render() {
     const {
       goods: {
-        data: { list, pagination },
+        data
       },
       token: {
         qiniuConfig: { token, domain },
@@ -262,22 +356,9 @@ class BasicList extends Component {
     const {
       form: { getFieldDecorator },
     } = this.props;
-    const { visible, operation, done, current = { properties: {} }, showProperties } = this.state;
+    const { visible, operation, done, current = { properties: {} }, showProperties, selectedRows } = this.state;
 
-    const editAndDelete = (key, currentItem) => {
-      this.setState({ operation: key });
-      if (key === 'edit') {
-        this.showEditModal(currentItem);
-      } else if (key === 'delete') {
-        Modal.confirm({
-          title: '删除手机',
-          content: '确定删除该手机吗？',
-          okText: '确认',
-          cancelText: '取消',
-          onOk: () => this.deleteItem(currentItem._id),
-        });
-      }
-    };
+
 
     const modalFooter = done
       ? { footer: null, onCancel: this.handleDone }
@@ -309,15 +390,15 @@ class BasicList extends Component {
       total: 50,
     };
 
-    const ListDetail = ({ data: { coverImg, name, created, onShelve } }) => (
+    const ListDetail = ({ data: { coverImg, title, created, onShelve } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
           {/* <span>手机名称</span> */}
-          <p>{name}</p>
+          <p>{title}</p>
         </div>
       </div>
     );
-    const ListDetail1 = ({ data: { coverImg, name, created, onShelve } }) => (
+    const ListDetail1 = ({ data: { coverImg, title, created, onShelve } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
           {/* <span>创建时间</span> */}
@@ -379,9 +460,9 @@ class BasicList extends Component {
             </Select>)}
           </FormItem>
           <FormItem label="标题" {...this.formLayout}>
-            {getFieldDecorator('name', {
+            {getFieldDecorator('title', {
               rules: [{ required: true, message: '请输入标题' }],
-              initialValue: current.name,
+              initialValue: current.title,
             })(<Input placeholder="请输入标题" />)}
           </FormItem>
           <FormItem label="描述" {...this.formLayout}>
@@ -403,12 +484,12 @@ class BasicList extends Component {
             })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入现价" />)}
           </FormItem>
           <FormItem label="邮递" {...this.formLayout}>
-            {getFieldDecorator('post', {
+            {getFieldDecorator('postage', {
               rules: [{ required: true, message: '请输入邮递' }],
-              initialValue: current.post,
+              initialValue: current.postage,
             })(<Select style={{ width: '100%' }}>
-              <Option value="包邮">包邮</Option>
-              <Option value="到付">到付</Option>
+              <Option value="SHIPPING">包邮</Option>
+              <Option value="PAY">到付</Option>
               <Option value="10">10</Option>
               <Option value="20">20</Option>
               <Option value="30">30</Option>
@@ -428,18 +509,18 @@ class BasicList extends Component {
                 }
 
                 const { fileList } = e;
+                console.log('fileList: ', fileList);
                 return fileList
-                  .filter(file => {
-                    if (!_.isEmpty(file.response)) {
-                      return file;
-                    }
-                  })
                   .map(file => {
-                    return {
-                      uid: file.uid,
-                      name: file.name,
-                      url: `http://${domain}/${file.response.hash}`,
-                    };
+                    if (!_.isEmpty(file.response)) {
+                      return {
+                        uid: file.uid,
+                        name: file.name,
+                        url: `http://${domain}/${file.response.hash}`,
+                      };
+                    } else {
+                      return file
+                    }
                   });
               },
             })(<PicturesWall good={current} token={token} domain={domain} setCoverImg={this.setCoverImg} />)}
@@ -599,16 +680,16 @@ class BasicList extends Component {
               添加
             </Button>
 
-            {/* <StandardTable
+            <StandardTable
               selectedRows={selectedRows}
               loading={loading}
               data={data}
               columns={this.columns}
               onSelectRow={this.handleSelectRows}
-              onChange={this.handleStandardTableChange}
-            /> */}
+            // onChange={this.handleStandardTableChange}
+            />
 
-            <List
+            {/* <List
               size="large"
               rowKey="id"
               loading={loading}
@@ -632,7 +713,7 @@ class BasicList extends Component {
                   <ListDetail1 data={item} />
                 </List.Item>
               )}
-            />
+            /> */}
           </Card>
         </div>
         <Modal
