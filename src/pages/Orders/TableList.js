@@ -319,6 +319,9 @@ class TableList extends Component {
     selectedRows: [],
     formValues: {},
     stepFormValues: {},
+    current: {},
+    done: false,
+    visible: false
   };
 
   columns = [
@@ -376,15 +379,31 @@ class TableList extends Component {
         return <Badge status={PaymentStateBadgeMap[val]} text={PaymentStateMap[val]} />;
       },
     },
-    // {
-    //   title: '操作',
-    //   render: (text, record) => (
-    //     <Fragment>
-    //       <a onClick={() => this.handleUpdateModalVisible(true, record)}>查看</a>
-    //     </Fragment>
-    //   ),
-    // },
+    {
+      title: '操作',
+      render: (text, record) => (
+        <Fragment>
+          <Dropdown
+            overlay={
+              <Menu onClick={({ key }) => this.editAndDelete(key, record)}>
+                <Menu.Item key="edit">编辑</Menu.Item>
+                <Menu.Item key="delete">删除</Menu.Item>
+              </Menu>
+            }
+          >
+            <a>
+              操作 <Icon type="down" />
+            </a>
+          </Dropdown>
+        </Fragment>
+      ),
+    },
   ];
+
+  formLayout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 15 },
+  };
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -418,6 +437,37 @@ class TableList extends Component {
       payload: params,
     });
   };
+
+  editAndDelete = (key, currentItem) => {
+    this.setState({ operation: key });
+    if (key === 'edit') {
+      this.showEditModal(currentItem);
+    } else if (key === 'delete') {
+      Modal.confirm({
+        title: '删除订单',
+        content: '确定删除该订单吗？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => this.deleteItem(currentItem._id),
+      });
+    }
+  };
+
+  showEditModal = item => {
+    this.setState({
+      current: item,
+      visible: true
+    })
+  }
+
+  deleteItem = id => {
+    this.props.dispatch({
+      type: 'order/remove',
+      payload: {
+        id
+      }
+    })
+  }
 
   previewItem = id => {
     router.push(`/profile/basic/${id}`);
@@ -668,7 +718,10 @@ class TableList extends Component {
       orders: { data },
       loading,
     } = this.props;
-    const { selectedRows, modalVisible, updateModalVisible, stepFormValues } = this.state;
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    const { selectedRows, modalVisible, updateModalVisible, stepFormValues, done, current, visible } = this.state;
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="remove">删除</Menu.Item>
@@ -683,6 +736,92 @@ class TableList extends Component {
     const updateMethods = {
       handleUpdateModalVisible: this.handleUpdateModalVisible,
       handleUpdate: this.handleUpdate,
+    };
+
+    const modalFooter = done
+      ? { footer: null, onCancel: this.handleDone }
+      : { okText: '保存', onOk: this.handleSubmit, onCancel: this.handleCancel };
+
+    const getModalContent = () => {
+      if (done) {
+        return (
+          <Result
+            type="success"
+            title={operation === 'create' ? '创建成功' : '更新成功'}
+            description={operation === 'create' ? '创建手机成功' : '更新手机成功'}
+            actions={
+              <Button type="primary" onClick={this.handleDone}>
+                知道了
+                </Button>
+            }
+            className={styles.formResult}
+          />
+        );
+      }
+      return (
+        <>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem label="订单号" {...this.formLayout}>
+              {getFieldDecorator('title', {
+                initialValue: current.serialNum,
+              })(<Input disabled />)}
+            </FormItem>
+            <FormItem label="收货人" {...this.formLayout}>
+              {getFieldDecorator('receiverName', {
+                rules: [{ required: true, message: '请输入收货人' }],
+                initialValue: current.receiverName,
+              })(<Input placeholder="请输入收货人" />)}
+            </FormItem>
+            <FormItem label="收货人手机号" {...this.formLayout}>
+              {getFieldDecorator('originPrice', {
+                rules: [{ required: true, message: '请输入收货人手机号' }],
+                initialValue: current.receiverPhone,
+              })(<InputNumber min={1} style={{ width: '100%' }} placeholder="请输入收货人手机号" />)}
+            </FormItem>
+            <FormItem label="收货地址" {...this.formLayout}>
+              {getFieldDecorator('originPrice', {
+                rules: [{ required: true, message: '请输入收货地址' }],
+                initialValue: current.receiverAddress,
+              })(<TextArea rows={4} style={{ width: '100%' }} placeholder="请输入收货地址" />)}
+            </FormItem>
+            <FormItem label="创建时间" {...this.formLayout}>
+              {getFieldDecorator('purchasePrice', {
+                initialValue: current.createdAt,
+              })(<Input style={{ width: '100%' }} />)}
+            </FormItem>
+            <FormItem label="订单总价" {...this.formLayout}>
+              {getFieldDecorator('total', {
+                initialValue: current.total,
+              })(<Input style={{ width: '100%' }} />)}
+            </FormItem>
+            <FormItem label="邮费和其他费用" {...this.formLayout}>
+              {getFieldDecorator('adjustmentTotal', {
+                initialValue: current.adjustmentTotal,
+              })(<Input style={{ width: '100%' }} />)}
+            </FormItem>
+            <FormItem label="订单状态" {...this.formLayout}>
+              {getFieldDecorator('state', {
+                initialValue: current.state,
+              })(<Input style={{ width: '100%' }} />)}
+            </FormItem>
+            <FormItem label="支付状态" {...this.formLayout}>
+              {getFieldDecorator('paymentState', {
+                initialValue: current.paymentState,
+              })(<Input style={{ width: '100%' }} />)}
+            </FormItem>
+
+          </Form >
+
+          <div>
+            {current.releatedGoods && current.releatedGoods.map(good => {
+              return (
+                <div>{good.title}</div>
+              )
+            })}
+          </div>
+
+        </>
+      );
     };
     return (
       <PageHeaderWrapper title="订单列表">
@@ -722,6 +861,18 @@ class TableList extends Component {
             values={stepFormValues}
           />
         ) : null}
+
+        <Modal
+          title={done ? null : `${current.id ? '编辑' : '添加'}商品`}
+          className={styles.standardListForm}
+          width={640}
+          bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}
+          destroyOnClose
+          visible={visible}
+          {...modalFooter}
+        >
+          {getModalContent()}
+        </Modal>
       </PageHeaderWrapper>
     );
   }

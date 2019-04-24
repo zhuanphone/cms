@@ -68,7 +68,7 @@ self.__precacheManifest = [
     "url": "/p__Goods__BasicProfile.async.js"
   },
   {
-    "revision": "5a08f8519dfdbe107d6a",
+    "revision": "7b5d858b1e6f486b938c",
     "url": "/p__Goods__models__goods.js.async.js"
   },
   {
@@ -80,15 +80,15 @@ self.__precacheManifest = [
     "url": "/p__Orders__BasicProfile.async.js"
   },
   {
-    "revision": "82d198b80f9de0a69ac3",
+    "revision": "984a7c27f0ce16b93a0a",
     "url": "/p__Orders__TableList.chunk.css"
   },
   {
-    "revision": "82d198b80f9de0a69ac3",
+    "revision": "984a7c27f0ce16b93a0a",
     "url": "/p__Orders__TableList.async.js"
   },
   {
-    "revision": "e323624aaddd03d4dd8c",
+    "revision": "5f4ba118b94dede4df0a",
     "url": "/p__Orders__models__orders.js.async.js"
   },
   {
@@ -116,7 +116,7 @@ self.__precacheManifest = [
     "url": "/p__User__RegisterResult.async.js"
   },
   {
-    "revision": "c0c967781e2880e18d26",
+    "revision": "54b353857934ad549ad1",
     "url": "/p__User__models__register.js.async.js"
   },
   {
@@ -128,15 +128,15 @@ self.__precacheManifest = [
     "url": "/p__Users__BasicList.async.js"
   },
   {
-    "revision": "598362942568c47956de",
+    "revision": "e0639c2b588e9f8591d3",
     "url": "/p__Users__models__users.js.async.js"
   },
   {
-    "revision": "b420bc68cad552051faa",
+    "revision": "888eb2cfa65093bb7047",
     "url": "/umi.css"
   },
   {
-    "revision": "b420bc68cad552051faa",
+    "revision": "888eb2cfa65093bb7047",
     "url": "/umi.js"
   },
   {
@@ -156,48 +156,48 @@ self.__precacheManifest = [
     "url": "/index.html"
   },
   {
-    "revision": "386acc8261f61af932676e7a93e3ccbf",
-    "url": "/ggeditor/flow/decision.svg"
-  },
-  {
     "revision": "694c4300be571fdd4d8b6abbe14d2e3f",
     "url": "/favicon.png"
-  },
-  {
-    "revision": "7ae8363380c2f7b1cc749be320f584ae",
-    "url": "/ggeditor/flow/model.svg"
   },
   {
     "revision": "c3eb6822f00442e58f4fae8645276b29",
     "url": "/ggeditor/flow/normal.svg"
   },
   {
-    "revision": "c34897c103689b920309d1eeeca9ebad",
-    "url": "/ggeditor/flow/start.svg"
+    "revision": "7ae8363380c2f7b1cc749be320f584ae",
+    "url": "/ggeditor/flow/model.svg"
+  },
+  {
+    "revision": "386acc8261f61af932676e7a93e3ccbf",
+    "url": "/ggeditor/flow/decision.svg"
   },
   {
     "revision": "07dcd135056a94bf54b5525779ab4cef",
     "url": "/ggeditor/koni/icon.svg"
   },
   {
-    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
-    "url": "/icons/icon-192x192.png"
-  },
-  {
     "revision": "347329d0982682b42d40c8162817a940",
     "url": "/icons/icon-128x128.png"
+  },
+  {
+    "revision": "c34897c103689b920309d1eeeca9ebad",
+    "url": "/ggeditor/flow/start.svg"
+  },
+  {
+    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
+    "url": "/ggeditor/koni/bank.svg"
   },
   {
     "revision": "5661ce8e2472d2727e8fd0390b22ba37",
     "url": "/icons/icon-512x512.png"
   },
   {
-    "revision": "23f14d5686d7b771c5bffaa6cd1c3f05",
-    "url": "/ggeditor/koni/country.svg"
+    "revision": "c23aa881b8d0e959f6c0aeb5ae7e4baa",
+    "url": "/icons/icon-192x192.png"
   },
   {
-    "revision": "8bab0e213ae4bfb2ef3dcdc99378610e",
-    "url": "/ggeditor/koni/bank.svg"
+    "revision": "23f14d5686d7b771c5bffaa6cd1c3f05",
+    "url": "/ggeditor/koni/country.svg"
   },
   {
     "revision": "e72ea94ad4025edf7a44cf0f88591ee3",

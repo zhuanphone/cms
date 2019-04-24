@@ -1,4 +1,4 @@
-import { listOrders, readOrder } from '@/services/api';
+import { listOrders, readOrder, deleteOrder } from '@/services/api';
 
 export default {
   namespace: 'orders',
@@ -29,12 +29,11 @@ export default {
       if (callback) callback();
     },
     *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+      const response = yield call(deleteOrder, payload);
+
       if (callback) callback();
+
+      return response
     },
     *update({ payload, callback }, { call, put }) {
       const response = yield call(updateRule, payload);
